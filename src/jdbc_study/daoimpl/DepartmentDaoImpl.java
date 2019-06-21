@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import jdbc_study.dao.DepartmentDao;
 import jdbc_study.dto.Department;
+import jdbc_study.dto.Employee;
 import jdbc_study.jdbc.MySQLjdbcUtill;
 
 public class DepartmentDaoImpl implements DepartmentDao {
@@ -117,6 +118,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
 			res = pstmt.executeUpdate();
 		}
 		return res;	
+	}
+
+	@Override
+	public int trInsertEmpAndDept(Employee emp, Department dept) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 
