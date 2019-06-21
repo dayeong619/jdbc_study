@@ -84,18 +84,25 @@ public class EmployeeDaoTest {
 	}
 	
 	@Test
-	public void test03updateEmployee() throws SQLException{
+	public void test03updateEmployee() {
 		log.trace("test03updateEmployee()");
 		Employee UpdateEmp = new Employee(1200, "아이유", "대리", new Employee(1003), 150000000, new Department(1), getImage("아이유.png"));
-		int res = dao.updateEmployee(UpdateEmp);
-		Assert.assertEquals(1, res);
+		int res;
+		try {
+			res = dao.updateEmployee(UpdateEmp);
+			Assert.assertEquals(1, res);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	
 	}
 	
 	@Test
 	public void test04SelectEmployeeByNo() throws FileNotFoundException, IOException, SQLException {
 		log.trace("test04SelectEmployeeByNo()");
-		Employee selEmp = dao.selectEmployeeByNo(new Employee(1004));
+		Employee selEmp = dao.selectEmployeeByNo(new Employee(1200));
 		Assert.assertNotNull(selEmp);
 		log.trace(selEmp);
 		if (selEmp.getPic() != null) {
@@ -107,7 +114,7 @@ public class EmployeeDaoTest {
 	@Test
 	public void test05DeleteEmployee() throws SQLException {
 		log.trace("test05DeleteEmployee()");
-		Employee delEmp = new Employee(1004);
+		Employee delEmp = new Employee(1200, "김다영", "사원", new Employee(1003), 150000000, new Department(1), getImage("서현진.png"));
 		int res = dao.deleteEmployee(delEmp);
 		Assert.assertEquals(1, res);
 	}
