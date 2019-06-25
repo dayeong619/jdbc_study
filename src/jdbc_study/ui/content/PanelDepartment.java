@@ -1,23 +1,21 @@
 package jdbc_study.ui.content;
 
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import jdbc_study.dto.Department;
 
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
+@SuppressWarnings("serial")
 public class PanelDepartment extends JPanel {
 	private JTextField tfDeptNo;
 	private JTextField tfDeptName;
 	private JTextField tfFloor;
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelDepartment() {
 
 		initComponents();
@@ -26,7 +24,7 @@ public class PanelDepartment extends JPanel {
 		setBorder(new TitledBorder(null, "부서정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new GridLayout(0, 2, 10, 10));
 		
-		JLabel lblDeptNo = new JLabel("부서번호");
+		JLabel lblDeptNo = new JLabel("부서 번호");
 		lblDeptNo.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblDeptNo);
 		
@@ -50,7 +48,7 @@ public class PanelDepartment extends JPanel {
 		tfFloor.setColumns(10);
 		add(tfFloor);
 	}
-
+	
 	public void setDepartment(Department dept) {
 		tfDeptNo.setText(dept.getDeptNo()+"");
 		tfDeptName.setText(dept.getDeptName());
@@ -64,29 +62,23 @@ public class PanelDepartment extends JPanel {
 		return new Department(deptNo, deptName, floor);
 	}
 	
-	public void ClearTextField() {
+	public void clearTextField() {
 		tfDeptNo.setText("");
 		tfDeptName.setText("");
 		tfFloor.setText("");
 	}
+	
+	public JTextField getTfDeptNo() {
+		return tfDeptNo;
+	}
+	
+	public void setTfAllEditable(boolean isEditable) {
+		tfDeptNo.setEditable(isEditable);
+		tfDeptName.setEditable(isEditable);
+		tfFloor.setEditable(isEditable);
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

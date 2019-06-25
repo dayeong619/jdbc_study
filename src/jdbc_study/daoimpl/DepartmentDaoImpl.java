@@ -120,11 +120,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		return res;	
 	}
 
-	@Override
-	public int trInsertEmpAndDept(Employee emp, Department dept) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 }
 
 

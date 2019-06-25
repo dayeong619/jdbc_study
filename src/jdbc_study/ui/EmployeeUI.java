@@ -11,41 +11,41 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import jdbc_study.dao.DepartmentDao;
-import jdbc_study.dto.Department;
-import jdbc_study.ui.content.PanelDepartment;
+import jdbc_study.dao.EmployeeDao;
+import jdbc_study.dto.Employee;
+import jdbc_study.ui.content.PanelEmployee;
 
 @SuppressWarnings("serial")
-public class DepartmentUI extends JFrame implements ActionListener {
+public class EmployeeUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnAdd;
 	private JButton btnClear;
-	private PanelDepartment pContent;
+	private PanelEmployee pContent;
 
-	private DepartmentDao dao;
+	private EmployeeDao dao;
 	
 	private ErpManagementUI erpManagementUI;
 	
-	public DepartmentUI() {
+	public EmployeeUI() {
 //		dao = new DepartmentDaoImpl();
 		initComponents();
 	}
 	
-	public void setDao(DepartmentDao dao) {
+	public void setDao(EmployeeDao dao) {
 		this.dao = dao;
 	}
 
 	private void initComponents() {
-		setTitle("부서관리");
+		setTitle("사원관리");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 340, 419);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		pContent = new PanelDepartment();
+		pContent = new PanelEmployee();
 		contentPane.add(pContent, BorderLayout.CENTER);
 		
 		JPanel pBtn = new JPanel();
@@ -73,12 +73,12 @@ public class DepartmentUI extends JFrame implements ActionListener {
 		}
 	}
 	private void actionPerformedBtnUpdate(ActionEvent e) {
-		Department newDept = pContent.getDepartment();
+		Employee newEmp = pContent.getEmployee();
 		int res;
 		try {
-			res = dao.updateDepartment(newDept);
+			res = dao.updateEmployee(newEmp);
 			if (res != -1) {
-				JOptionPane.showMessageDialog(null, String.format("%s 부서가 수정되었습니다.", newDept.getDeptName()));
+				JOptionPane.showMessageDialog(null, String.format("%s 사원이 수정되었습니다.", newEmp.getEmpName()));
 				pContent.clearTextField();
 				btnAdd.setText("추가");
 			}
@@ -89,12 +89,13 @@ public class DepartmentUI extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnAdd(ActionEvent e) {
-		Department newDept = pContent.getDepartment();
+		Employee newEmp = pContent.getEmployee();
+		System.out.println(newEmp);
 		int res;
 		try {
-			res = dao.insertDepartment(newDept);
+			res = dao.insertEmployee(newEmp);
 			if (res != -1) {
-				JOptionPane.showMessageDialog(null, String.format("%s 부서가 추가되었습니다.", newDept.getDeptName()));
+				JOptionPane.showMessageDialog(null, String.format("%s 사원이 추가되었습니다.", newEmp.getEmpName()));
 				pContent.clearTextField();
 			}
 			erpManagementUI.refreshUI();
@@ -108,9 +109,9 @@ public class DepartmentUI extends JFrame implements ActionListener {
 		pContent.clearTextField();
 	}
 	
-	public void setDepartment(Department dept) {
-		pContent.setDepartment(dept);
-		pContent.getTfDeptNo().setEditable(false);
+	public void setEmployee(Employee emp) {
+		pContent.setEmployee(emp);
+		pContent.getTfEmpNo().setEditable(false);
 		btnAdd.setText("수정");
 	}
 
@@ -118,7 +119,7 @@ public class DepartmentUI extends JFrame implements ActionListener {
 		this.erpManagementUI = erpManagementUI;
 	}
 	
-	public void clearDepartment() {
+	public void clearEmployee() {
 		pContent.clearTextField();
 	}
 }

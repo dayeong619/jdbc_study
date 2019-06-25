@@ -48,5 +48,7 @@ public class Department {
 		this.floor = floor;
 	}
 	
-	
+	public Object[] toArray() {
+		return new Object[]{deptNo, deptName, floor};
+	}
 }
