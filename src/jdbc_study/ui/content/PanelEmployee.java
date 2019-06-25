@@ -107,6 +107,14 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		tfTitle = new JTextField();
 		pEmp.add(tfTitle);
 		tfTitle.setColumns(10);
+		
+				JLabel lblDept = new JLabel("부서");
+				pEmp.add(lblDept);
+				lblDept.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+				tfDept = new JTextField();
+				pEmp.add(tfDept);
+				tfDept.setColumns(10);
 
 		JLabel lblManager = new JLabel("직속상사");
 		pEmp.add(lblManager);
@@ -123,14 +131,6 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		tfSalary = new JTextField();
 		pEmp.add(tfSalary);
 		tfSalary.setColumns(10);
-
-		JLabel lblDept = new JLabel("부서");
-		pEmp.add(lblDept);
-		lblDept.setHorizontalAlignment(SwingConstants.RIGHT);
-
-		tfDept = new JTextField();
-		pEmp.add(tfDept);
-		tfDept.setColumns(10);
 	}
 
 	private void switchImage(String filePath) {
