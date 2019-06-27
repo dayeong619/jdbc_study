@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import jdbc_study.dao.DepartmentDao;
 import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
-import jdbc_study.jdbc.MySQLjdbcUtill;
+import jdbc_study.jdbc.MySQLjdbcUtil;
 
 public class DepartmentDaoImpl implements DepartmentDao {
 	static final Logger log = LogManager.getLogger();
@@ -27,7 +27,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		ResultSet rs = null;
 		
 		try {
-			conn = MySQLjdbcUtill.getConnection();
+			conn = MySQLjdbcUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			log.trace(pstmt);
 			rs = pstmt.executeQuery();
@@ -61,7 +61,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		
 		Department selDept = null;
 		
-		try (Connection conn =MySQLjdbcUtill.getConnection();
+		try (Connection conn =MySQLjdbcUtil.getConnection();
 			 PreparedStatement pstmt = conn.prepareStatement(sql);){
 			
 			pstmt.setInt(1, dept.getDeptNo());
@@ -81,7 +81,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		String sql = "INSERT INTO department(deptno, deptname, floor) VALUES(?, ?, ?)";
 		int res = -1;
 		
-		try(Connection conn = MySQLjdbcUtill.getConnection();
+		try(Connection conn = MySQLjdbcUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
 			pstmt.setInt(1, dept.getDeptNo());
 			pstmt.setString(2, dept.getDeptName());
@@ -97,7 +97,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		String sql = "delete from department where deptno=?";
 		int res = -1;
 			
-		try(Connection conn = MySQLjdbcUtill.getConnection();
+		try(Connection conn = MySQLjdbcUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
 			pstmt.setInt(1, dept.getDeptNo());
 			log.trace(pstmt);
@@ -111,7 +111,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		String sql = "UPDATE department SET deptname=?, floor=? WHERE deptno=?";
 		int res = -1;
 			
-		try(Connection conn = MySQLjdbcUtill.getConnection();
+		try(Connection conn = MySQLjdbcUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);){
 			pstmt.setInt(1, dept.getDeptNo());
 			log.trace(pstmt);

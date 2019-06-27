@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import jdbc_study.dao.DepartmentTransactionDao;
 import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
-import jdbc_study.jdbc.MySQLjdbcUtill;
+import jdbc_study.jdbc.MySQLjdbcUtil;
 
 public class DeptEmpTransactionDaoImpl implements DepartmentTransactionDao {
 	static final Logger log = LogManager.getLogger();
@@ -21,7 +21,7 @@ public class DeptEmpTransactionDaoImpl implements DepartmentTransactionDao {
 		String empSql = "insert into employee(empno, empname, title, manager, salary, dno) values(?, ?, ?, ?, ?, ?)";
 		
 		int res = 0;
-		Connection conn = MySQLjdbcUtill.getConnection();
+		Connection conn = MySQLjdbcUtil.getConnection();
 		
 		try(PreparedStatement dPstmt = conn.prepareStatement(deptSql);
 			PreparedStatement ePstmt = conn.prepareStatement(empSql)){

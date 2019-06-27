@@ -59,8 +59,9 @@ public class PanelEmployee extends JPanel implements ActionListener {
 
 		initComponents();
 
-		switchImage(imgPath + "noImg.jpg");
-
+		selectedImpPath = imgPath + "noImg.jpg";
+		switchImage(selectedImpPath);
+		
 		picsDir = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "pics"
 				+ System.getProperty("file.separator"));
 
@@ -138,6 +139,7 @@ public class PanelEmployee extends JPanel implements ActionListener {
 	}
 
 	private void switchImage(String filePath) {
+		
 		Image tmpIcon = new ImageIcon(filePath).getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(tmpIcon);
 		lblImg.setIcon(imageIcon);
@@ -154,6 +156,7 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		if (emp.getPic() != null) {
 			try {
 				File imgFile = getPicFile(emp);
+				selectedImpPath = imgFile.getAbsolutePath();
 				switchImage(imgFile.getAbsolutePath());
 			} catch (IOException e) {
 				e.printStackTrace();

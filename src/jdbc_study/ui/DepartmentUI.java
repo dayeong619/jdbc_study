@@ -82,7 +82,7 @@ public class DepartmentUI extends JFrame implements ActionListener {
 				pContent.clearTextField();
 				btnAdd.setText("추가");
 			}
-			erpManagementUI.refreshUI();
+			erpManagementUI.refreshListUI();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}		
@@ -97,7 +97,7 @@ public class DepartmentUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, String.format("%s 부서가 추가되었습니다.", newDept.getDeptName()));
 				pContent.clearTextField();
 			}
-			erpManagementUI.refreshUI();
+			erpManagementUI.refreshListUI();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -120,5 +120,6 @@ public class DepartmentUI extends JFrame implements ActionListener {
 	
 	public void clearDepartment() {
 		pContent.clearTextField();
+		btnAdd.setText("추가");
 	}
 }

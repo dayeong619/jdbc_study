@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-public class MySQLjdbcUtill {
+public class MySQLjdbcUtil {
 //	public static void main(String[] args) throws SQLException {
 //		Connection con = getConnection();
 //		System.out.println(con);

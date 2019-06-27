@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import jdbc_study.dao.EmployeeDao;
-import jdbc_study.daoimpl.EmployeeDaoimpl;
+import jdbc_study.daoimpl.EmployeeDaoImpl;
 import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
 
@@ -33,7 +33,7 @@ public class EmployeeDaoTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		log.trace("setUpBeforeClass");
-		dao = new EmployeeDaoimpl();
+		dao = new EmployeeDaoImpl();
 		
 		picsDir = new File(System.getProperty("user.dir")+ 
 		           System.getProperty("file.separator") + 

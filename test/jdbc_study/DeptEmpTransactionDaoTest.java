@@ -17,7 +17,7 @@ import jdbc_study.dao.DepartmentTransactionDao;
 import jdbc_study.dao.EmployeeDao;
 import jdbc_study.daoimpl.DepartmentDaoImpl;
 import jdbc_study.daoimpl.DeptEmpTransactionDaoImpl;
-import jdbc_study.daoimpl.EmployeeDaoimpl;
+import jdbc_study.daoimpl.EmployeeDaoImpl;
 import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
 
@@ -48,7 +48,7 @@ public class DeptEmpTransactionDaoTest {
 	@Test
 	public void test0transactionInsertEmpAndDept() throws SQLException {
 		dao1 = new DepartmentDaoImpl();
-		dao2 = new EmployeeDaoimpl();
+		dao2 = new EmployeeDaoImpl();
 		dao2.deleteEmployee(new Employee(1005));
 		dao1.deleteDepartment(new Department(7));
 		

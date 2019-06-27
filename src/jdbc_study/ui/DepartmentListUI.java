@@ -3,6 +3,7 @@ package jdbc_study.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -118,8 +119,29 @@ public class DepartmentListUI extends JFrame implements ActionListener {
 			updateUI();
 		}
 		if (e.getSource() == mntmPopDelete) {
-			parent.actionPerformedBtnDelete();
+			try {
+				deleteUI();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
+	}
+
+	private void deleteUI() throws SQLException {
+		int i = table.getSelectedRow();
+
+		if (table.getModel().getRowCount() == 0) { // 부서정보가 존재하지 않을 경우
+			parent.showDepartmentUI();
+			return;
+		}
+		if (i < 0 || i > table.getModel().getRowCount() - 1) { // 선택하지 않은 경우
+			JOptionPane.showMessageDialog(null, "선택된 부서가 없습니다.");
+			return;
+		}
+
+		int deptNo = (int) table.getModel().getValueAt(i, 0);
+
+		parent.actionPerformedBtnDeptDelete(deptNo);
 	}
 
 	private void updateUI() {
@@ -135,10 +157,7 @@ public class DepartmentListUI extends JFrame implements ActionListener {
 		}
 
 		int deptNo = (int) table.getModel().getValueAt(i, 0);
-		JOptionPane.showMessageDialog(null, "deptNo = " + deptNo);
 
-		JOptionPane.showMessageDialog(null, deptList.indexOf(new Department(deptNo)));
-		JOptionPane.showMessageDialog(null, deptList.get(deptList.indexOf(new Department(deptNo))));
 		Department searchDept = deptList.get(deptList.indexOf(new Department(deptNo)));
 		parent.showDepartmentUI(searchDept);
 	}
