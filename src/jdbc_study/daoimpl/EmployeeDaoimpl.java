@@ -21,7 +21,7 @@ public class EmployeeDaoimpl implements EmployeeDao {
 	@Override
 	public List<Employee> selectEmployeeByAll() throws SQLException {
 		String sql = "SELECT empno, empname, title, manager, salary, dno, pic FROM employee";
-		List<Employee> lists = new ArrayList<Employee>();;
+		List<Employee> lists = new ArrayList<Employee>();
 		try(Connection conn = MySQLjdbcUtill.getConnection(); //연결 conn
 			PreparedStatement pstmt = conn.prepareStatement(sql); //sql날리기 prepared
 			ResultSet rs = pstmt.executeQuery()){
@@ -79,8 +79,8 @@ public class EmployeeDaoimpl implements EmployeeDao {
 			pstmt.setInt(4, employee.getManager().getEmpNo());
 			pstmt.setInt(5, employee.getSalary());
 			pstmt.setInt(6, employee.getDno().getDeptNo()); //type이 Department(employee.getDno())
-			pstmt.setBytes(7, employee.getPic());
-			System.out.println(pstmt);
+			log.trace(pstmt);
+			pstmt.setBytes(7, employee.getPic());		
 			return 	pstmt.executeUpdate();
 		}
 	}

@@ -8,19 +8,18 @@ public class Employee {
 	private int salary;
 	private Department dno;
 	private byte[] pic;
-	
+
 	public Employee(int empNo) {
 		this.empNo = empNo;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return String.format("[%s, %s, %s, %s, %s, %s]", empNo, empName,title, manager.getEmpNo(), salary, dno.getDeptNo());
-	}
 
-	public Object[] toArray() {
-		return new Object[] {empNo, empName,title, manager.getEmpNo(), salary, dno.getDeptNo()};
+	public Employee(int empNo, String empName, String title, Employee manager, int salary, Department dno) {
+		this.empNo = empNo;
+		this.empName = empName;
+		this.title = title;
+		this.manager = manager;
+		this.salary = salary;
+		this.dno = dno;
 	}
 
 	public Employee(int empNo, String empName, String title, Employee manager, int salary, Department dno, byte[] pic) {
@@ -32,8 +31,6 @@ public class Employee {
 		this.dno = dno;
 		this.pic = pic;
 	}
-
-
 
 	public int getEmpNo() {
 		return empNo;
@@ -91,22 +88,35 @@ public class Employee {
 		this.pic = pic;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + empNo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (empNo != other.empNo)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("[%s, %s, %s, %s, %s, %s]", empNo, empName, title, manager.getEmpNo(), salary,
+				dno.getDeptNo());
+	}
+
+	public Object[] toArray() {
+		return new Object[] { empNo, empName, title, manager.getEmpNo(), salary, dno.getDeptNo() };
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

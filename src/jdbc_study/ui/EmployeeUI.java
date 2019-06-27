@@ -3,27 +3,33 @@ package jdbc_study.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import jdbc_study.dao.DepartmentDao;
 import jdbc_study.dao.EmployeeDao;
+import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
 import jdbc_study.ui.content.PanelEmployee;
 
 @SuppressWarnings("serial")
-public class EmployeeUI extends JFrame implements ActionListener {
+public class EmployeeUI extends JFrame implements ActionListener, ItemListener {
 
 	private JPanel contentPane;
 	private JButton btnAdd;
 	private JButton btnClear;
 	private PanelEmployee pContent;
 
-	private EmployeeDao dao;
+	private EmployeeDao empDao;
+	private DepartmentDao depDao;
 	
 	private ErpManagementUI erpManagementUI;
 	
@@ -32,8 +38,14 @@ public class EmployeeUI extends JFrame implements ActionListener {
 		initComponents();
 	}
 	
-	public void setDao(EmployeeDao dao) {
-		this.dao = dao;
+	public void setEmpDao(EmployeeDao dao) {
+		this.empDao = dao;
+	}
+	
+	public void setDepDao(DepartmentDao dao) {
+		this.depDao = dao;
+		this.pContent.setCmbModel(dao.selectDepartmentByAll());
+		this.pContent.getCmbDept().addItemListener(this);
 	}
 
 	private void initComponents() {
@@ -76,7 +88,7 @@ public class EmployeeUI extends JFrame implements ActionListener {
 		Employee newEmp = pContent.getEmployee();
 		int res;
 		try {
-			res = dao.updateEmployee(newEmp);
+			res = empDao.updateEmployee(newEmp);
 			if (res != -1) {
 				JOptionPane.showMessageDialog(null, String.format("%s 사원이 수정되었습니다.", newEmp.getEmpName()));
 				pContent.clearTextField();
@@ -90,10 +102,9 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
 	protected void actionPerformedBtnAdd(ActionEvent e) {
 		Employee newEmp = pContent.getEmployee();
-		System.out.println(newEmp);
 		int res;
 		try {
-			res = dao.insertEmployee(newEmp);
+			res = empDao.insertEmployee(newEmp);
 			if (res != -1) {
 				JOptionPane.showMessageDialog(null, String.format("%s 사원이 추가되었습니다.", newEmp.getEmpName()));
 				pContent.clearTextField();
@@ -121,5 +132,14 @@ public class EmployeeUI extends JFrame implements ActionListener {
 	
 	public void clearEmployee() {
 		pContent.clearTextField();
+		btnAdd.setText("추가");
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			Department dept = (Department) e.getItem();
+			JOptionPane.showMessageDialog(null, dept);
+		}
 	}
 }

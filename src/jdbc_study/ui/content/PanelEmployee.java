@@ -10,10 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,7 +37,8 @@ public class PanelEmployee extends JPanel implements ActionListener {
 	private JTextField tfTitle;
 	private JTextField tfManager;
 	private JTextField tfSalary;
-	private JTextField tfDept;
+	private JComboBox<Department> cmbDept;
+	private DefaultComboBoxModel<Department> deptCmbModel;
 	private JLabel lblImg;
 
 	private String imgPath;
@@ -55,7 +60,7 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		initComponents();
 
 		switchImage(imgPath + "noImg.jpg");
-		
+
 		picsDir = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "pics"
 				+ System.getProperty("file.separator"));
 
@@ -107,14 +112,13 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		tfTitle = new JTextField();
 		pEmp.add(tfTitle);
 		tfTitle.setColumns(10);
-		
-				JLabel lblDept = new JLabel("부서");
-				pEmp.add(lblDept);
-				lblDept.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-				tfDept = new JTextField();
-				pEmp.add(tfDept);
-				tfDept.setColumns(10);
+
+		JLabel lblDept = new JLabel("부서");
+		pEmp.add(lblDept);
+		lblDept.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		cmbDept = new JComboBox<Department>();
+		pEmp.add(cmbDept);
 
 		JLabel lblManager = new JLabel("직속상사");
 		pEmp.add(lblManager);
@@ -145,9 +149,8 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		tfTitle.setText(emp.getTitle());
 		tfManager.setText(emp.getManager().getEmpNo() + "");
 		tfSalary.setText(emp.getSalary() + "");
-		tfDept.setText(emp.getDno().getDeptNo() + "");
-		// 이미지 나중에
-//		lblImg;
+//		cmbDept.setText(emp.getDno().getDeptNo() + "");
+		cmbDept.setSelectedItem(emp.getDno());
 		if (emp.getPic() != null) {
 			try {
 				File imgFile = getPicFile(emp);
@@ -155,7 +158,7 @@ public class PanelEmployee extends JPanel implements ActionListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			switchImage(imgPath + "noImg.jpg");
 		}
 		btnImgAdd.setText("변경");
@@ -167,7 +170,7 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		String title = tfTitle.getText().trim();
 		int salary = Integer.parseInt(tfSalary.getText().trim());
 		Employee manager = new Employee(Integer.parseInt(tfManager.getText().trim()));
-		Department dno = new Department(Integer.parseInt(tfDept.getText().trim()));
+		Department dno = (Department) cmbDept.getSelectedItem();
 
 		return new Employee(empNo, empName, title, manager, salary, dno, getImage());
 	}
@@ -178,8 +181,15 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		tfTitle.setText("");
 		tfManager.setText("");
 		tfSalary.setText("");
-		tfDept.setText("");
+		cmbDept.setSelectedIndex(-1);
 		switchImage(imgPath + "noImg.jpg");
+		if (!tfEmpNo.isEditable()) {
+			tfEmpNo.setEditable(true);
+		}
+		if (btnImgAdd.getText().equals("변경")) {
+			btnImgAdd.setText("사진 추가");
+		}
+
 	}
 
 	public JTextField getTfEmpNo() {
@@ -192,7 +202,7 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		tfTitle.setEditable(isEditable);
 		tfManager.setEditable(isEditable);
 		tfSalary.setEditable(isEditable);
-		tfDept.setEditable(isEditable);
+		cmbDept.setEnabled(isEditable);
 		btnImgAdd.setVisible(false);
 	}
 
@@ -245,4 +255,16 @@ public class PanelEmployee extends JPanel implements ActionListener {
 		return file;
 	}
 
+	
+	public void setCmbModel(List<Department> deptList) {
+		deptCmbModel = new DefaultComboBoxModel<Department>(
+										new Vector<Department>(deptList)
+									);
+		cmbDept.setModel(deptCmbModel);
+	}
+
+	public JComboBox<Department> getCmbDept() {
+		return cmbDept;
+	}
+	
 }
